@@ -1,3 +1,7 @@
+package solution01;
+
+import solution01.Printer;
+
 /**
  * @author zheng_c
  * @create 2018-08-09 5:48 PM

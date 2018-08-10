@@ -1,4 +1,8 @@
+package solution01;
+
 /**
+ * use volatile
+ *
  * @author zheng_c
  * @create 2018-08-09 6:33 PM
  */
