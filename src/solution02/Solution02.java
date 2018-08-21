@@ -11,7 +11,7 @@ public class Solution02 {
         Printer printer = new Printer();
         Thread printNumber = new Thread(()-> printer.printNumber());
         Thread printAlpha = new Thread(() -> printer.printAlpha());
-        printAlpha.start();
         printNumber.start();
+        printAlpha.start();
     }
 }

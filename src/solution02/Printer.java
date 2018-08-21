@@ -18,7 +18,7 @@ public class Printer {
             if (i % 2 == 0) {
                 notifyAll(); //仅仅是唤醒其他线程, 目前还没有释放监视器锁
                 try {
-                    wait(); //释放监视器锁
+                    if (i != 52) wait(); // 释放监视器锁, 若打印的是最后一个数字则直接退出
                 } catch (InterruptedException e) {
                     System.out.println("printNumber is interrupted");
                 }
@@ -27,19 +27,12 @@ public class Printer {
     }
 
     public synchronized void printAlpha() {
-        // 这个if语句只是为了确保数字线程先被运行
-        if(!started) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                System.out.println("printAlpha is interrupted");
-            }
-        }
         for (char c = 'A'; c <= 'Z'; c++) {
             System.out.print(c);
-            notifyAll();
+            // 只要打印了一个字母，就交出监视器锁
+            notifyAll(); // 先唤醒其他线程
             try {
-                if (c != 'Z') wait(); //最后一个`Z`不需要再wait
+                if (c != 'Z') wait(); // 释放监视器锁，若打印的是最后一个字母则直接退出。
             } catch (InterruptedException e) {
                 System.out.println("printAlpha is interrupted");
             }
